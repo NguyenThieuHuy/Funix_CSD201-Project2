@@ -33,14 +33,13 @@ public class AS2_Main {
    
     }
    
-    
-   
     public static void main(String[] args) {
       Scanner sc = new Scanner(System.in);
-      showMenu();
-      int key = sc.nextInt();
       boolean repeate = true;
+      int key;
       do {
+        showMenu();
+        key = sc.nextInt();  
         switch (key) {
           case 1:
             break;
@@ -73,13 +72,13 @@ public class AS2_Main {
             break;
   
           case 0:
+            repeate = false;
             break;
   
           default:
-            repeate = false;
             break;
         }
-      } while (repeate = true);
+      } while (repeate == true);
       sc.close();
     }
     }
