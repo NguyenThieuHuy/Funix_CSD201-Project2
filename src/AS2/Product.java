@@ -32,12 +32,32 @@ public class Product {
         this.quantity = quantity;
         this.price = price;
     }
-   
+
+    /**
+     * Get Bcode value
+     */
+    public String getBcode() {
+        return bcode;
+    }
+
+    /**
+     * Get Quantity value
+     */
+    public Integer getQuantity() {
+        return quantity;
+    }
+
     /**
      * Convert this product to String for printing
      */
     @Override
     public String toString() {
-        return bcode +" "+ title +" "+ quantity +" "+ price;
+        return bcode +","+ title +","+ quantity +","+ price;
+    }
+    public void display() {
+        System.out.printf("| %5s",this.bcode);
+        System.out.printf("| %50s", this.title);
+        System.out.printf("| %15s", this.quantity);
+        System.out.printf("| %15s", this.price+"\n");
     }
    }
