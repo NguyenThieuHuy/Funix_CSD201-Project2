@@ -109,6 +109,35 @@ public class AS2_Main {
           }
 
         case 9:
+          o.getAllItemsFromFile(path, stack);
+          //display
+          Node<Product> currentsNode = stack.head;
+          if (stack.head == null) {
+              System.out.println("Your stack is empty!!!");;
+          }
+          else {
+            System.setOut(ps);
+            System.out.printf("| %5s","Bcode");
+            System.out.printf("| %50s", "Title");
+            System.out.printf("| %15s", "Quantity");
+            System.out.printf("| %15s", "Price\n");
+            System.setOut(console);
+            System.out.printf("| %5s","Bcode");
+            System.out.printf("| %50s", "Title");
+            System.out.printf("| %15s", "Quantity");
+            System.out.printf("| %15s", "Price\n");
+            while (currentsNode.next != null) {
+              System.setOut(ps);
+              currentsNode.info.display();
+              System.setOut(console);
+              currentsNode.info.display();
+              currentsNode = currentsNode.next;
+            }
+            currentsNode.info.display();
+          }
+          break;
+        
+        case 10:
           o.getAllItemsFromFile(path, queue);
           //display
           Node<Product> currentqNode = queue.head;
@@ -139,35 +168,7 @@ public class AS2_Main {
             queue.tail.info.display();
           }
           break;
-
-        case 10:
-          o.getAllItemsFromFile(path, stack);
-          //display
-          Node<Product> currentsNode = stack.head;
-          if (stack.head == null) {
-              System.out.println("Your stack is empty!!!");;
-          }
-          else {
-            System.setOut(ps);
-            System.out.printf("| %5s","Bcode");
-            System.out.printf("| %50s", "Title");
-            System.out.printf("| %15s", "Quantity");
-            System.out.printf("| %15s", "Price\n");
-            System.setOut(console);
-            System.out.printf("| %5s","Bcode");
-            System.out.printf("| %50s", "Title");
-            System.out.printf("| %15s", "Quantity");
-            System.out.printf("| %15s", "Price\n");
-            while (currentsNode.next != null) {
-              System.setOut(ps);
-              currentsNode.info.display();
-              System.setOut(console);
-              currentsNode.info.display();
-              currentsNode = currentsNode.next;
-            }
-            currentsNode.info.display();
-          }
-          break;
+          
         case 0:
           repeate = false;
           break;
