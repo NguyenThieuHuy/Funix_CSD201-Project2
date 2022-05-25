@@ -1,9 +1,8 @@
 package AS2;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class AS2_Main {
-
   public static void showMenu() {
     System.out.println("Choose one of this options:");
     System.out.println("Product list:");
@@ -20,6 +19,15 @@ public class AS2_Main {
     System.out.println("0. Exit");
   }   
   public static void main(String[] args) throws IOException {
+    // Store current System.out before assigning a new value 
+    PrintStream console = System.out; 
+    //Your output file
+    File file = new File("lib/out.txt");
+    //New OutputStream
+    FileOutputStream fos = new FileOutputStream(file);
+    //New PrintStream
+    PrintStream ps = new PrintStream(fos);
+
     Scanner sc = new Scanner(System.in);
     OperationToProduct o = new OperationToProduct();
     MyList<Product> list = new MyList<Product>();
@@ -28,14 +36,25 @@ public class AS2_Main {
     String path = "lib/data.csv";
     boolean repeate = true;
     int key;
+    //Change OutputStream to file
+    System.setOut(ps);
+    showMenu();
+    //Change OutputStream to console
+    System.setOut(console);
     showMenu();
     do {
+      System.setOut(ps);
+      System.out.print("\nChoose from the list: ");
+      System.setOut(console);
       System.out.print("\nChoose from the list: ");
       key = sc.nextInt();  
       switch (key) {
         case 1:
           //display
           o.getAllItemsFromFile(path, list);
+          System.setOut(ps);
+          o.displayAll(list);
+          System.setOut(console);
           o.displayAll(list);
           break;
 
@@ -45,6 +64,9 @@ public class AS2_Main {
 
         case 3:
           //display
+          System.setOut(ps);
+          o.displayAll(list);
+          System.setOut(console);
           o.displayAll(list);
           break;
 
@@ -53,8 +75,16 @@ public class AS2_Main {
           break;
 
         case 5:
-          o.searchByCode(list);
-          break;
+          if (list.isEmpty() == true) {
+            System.out.println("Your list is empty!!!");
+            break;
+          }else{
+            Product p = o.searchByCode(list);
+            System.setOut(ps);
+            p.display();
+            System.setOut(console);
+            break;
+          }
 
         case 6:
           o.deleteByCode(list);
@@ -68,10 +98,15 @@ public class AS2_Main {
           if (list.isEmpty() == true) {
             System.out.println("Your list is empty!!!");
             break;
+          }else{
+            o.bin_num = "";
+            int value = o.convertToBinary(list.head.info.getQuantity());
+            System.setOut(ps);
+            System.out.println(value);
+            System.setOut(console);
+            System.out.println(value);
+            break;
           }
-          o.bin_num = "";
-          System.out.println(o.convertToBinary(list.head.info.getQuantity()));
-          break;
 
         case 9:
           o.getAllItemsFromFile(path, queue);
@@ -81,15 +116,27 @@ public class AS2_Main {
               System.out.println("Your queue is empty!!!");;
           }
           else {
+              System.setOut(ps);
+              System.out.printf("| %5s","Bcode");
+              System.out.printf("| %50s", "Title");
+              System.out.printf("| %15s", "Quantity");
+              System.out.printf("| %15s", "Price\n");
+              System.setOut(console);
               System.out.printf("| %5s","Bcode");
               System.out.printf("| %50s", "Title");
               System.out.printf("| %15s", "Quantity");
               System.out.printf("| %15s", "Price\n");
               while (currentqNode.next != null) {
-                  currentqNode.info.display();
-                  currentqNode = currentqNode.next;
+                System.setOut(ps);
+                currentqNode.info.display();
+                System.setOut(console);
+                currentqNode.info.display();
+                currentqNode = currentqNode.next;
               }
-              queue.tail.info.display();
+            System.setOut(ps);
+            queue.tail.info.display();
+            System.setOut(console);
+            queue.tail.info.display();
           }
           break;
 
@@ -101,18 +148,26 @@ public class AS2_Main {
               System.out.println("Your stack is empty!!!");;
           }
           else {
-              System.out.printf("| %5s","Bcode");
-              System.out.printf("| %50s", "Title");
-              System.out.printf("| %15s", "Quantity");
-              System.out.printf("| %15s", "Price\n");
-              while (currentsNode.next != null) {
-                  currentsNode.info.display();
-                  currentsNode = currentsNode.next;
-              }
+            System.setOut(ps);
+            System.out.printf("| %5s","Bcode");
+            System.out.printf("| %50s", "Title");
+            System.out.printf("| %15s", "Quantity");
+            System.out.printf("| %15s", "Price\n");
+            System.setOut(console);
+            System.out.printf("| %5s","Bcode");
+            System.out.printf("| %50s", "Title");
+            System.out.printf("| %15s", "Quantity");
+            System.out.printf("| %15s", "Price\n");
+            while (currentsNode.next != null) {
+              System.setOut(ps);
               currentsNode.info.display();
+              System.setOut(console);
+              currentsNode.info.display();
+              currentsNode = currentsNode.next;
             }
+            currentsNode.info.display();
+          }
           break;
-
         case 0:
           repeate = false;
           break;

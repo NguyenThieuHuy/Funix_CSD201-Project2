@@ -202,7 +202,7 @@ public class OperationToProduct {
      * Searching product by ID input from keyboard.
      * @param list
      */
-    public void searchByCode(MyList<Product> list) {
+    public Product searchByCode(MyList<Product> list) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Barcode: ");
         String bcode = sc.next();
@@ -219,12 +219,13 @@ public class OperationToProduct {
                     System.out.printf("| %15s", "Quantity");
                     System.out.printf("| %15s", "Price\n");        
                     current.info.display();
-                    return;
+                    return current.info;
                 }
                 current = current.next;
             }
         }
         System.out.println("No match!!!");
+        return null;
     }
    
     /**
